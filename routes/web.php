@@ -22,8 +22,8 @@ Route::namespace('App\Http\Controllers')->group(function () {
     Route::get('logout','UsersController@logout');
 
     Route::prefix('user')->group(function () {
-        Route::patch('/','UsersController@updateProfilePhoto')
-
+        Route::patch('/','UsersController@updateProfilePhoto');
+        Route::patch('/','UsersController@updateProfilePhoto');
     });
 
 
