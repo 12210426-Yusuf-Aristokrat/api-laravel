@@ -23,7 +23,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
     Route::prefix('user')->group(function () {
         Route::patch('/','UsersController@updateProfilePhoto');
-        Route::patch('/','UsersController@updateProfilePhoto');
+        Route::patch('photo','UsersController@showProfilePhoto');
     });
 
 

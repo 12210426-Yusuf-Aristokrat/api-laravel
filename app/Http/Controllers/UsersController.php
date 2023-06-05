@@ -88,5 +88,19 @@ class UsersController extends Controller
 
         return redirect()->route('login')->with('error', 'Tidak ada pengguna yang masuk.');
     }
+
+    public function showProfilePhoto()
+    {
+        $user = Auth::user();
+
+        if ($user && $user->photo) {
+            $path = Storage::url($user->photo);
+            return response()->file(public_path($path));
+        }
+
+        // Jika pengguna tidak ada atau tidak memiliki foto profil
+        return response()->file(public_path('default-profile-photo.png')); // Ganti dengan path ke gambar default profil
+    }
+
 }
 
