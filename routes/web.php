@@ -16,3 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::namespace('App\Http\Controllers')->group(function () {
+    Route::get('login','UsersController@login');
+    Route::get('logout','UsersController@logout');
+
+    Route::prefix('user')->group(function () {
+        Route::patch('/','UsersController@updateProfilePhoto')
+
+    });
+
+
+    Route::prefix('user-details')->group(function () {
+        Route::post('/', 'UserDetailController@store')->name('user-details.store');
+        Route::get('/{id}', 'UserDetailController@show')->name('user-details.show');
+        Route::put('/{id}', 'UserDetailController@update')->name('user-details.update');
+        Route::delete('/{id}', 'UserDetailController@destroy')->name('user-details.destroy');
+    });
+});
+

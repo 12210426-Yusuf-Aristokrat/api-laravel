@@ -17,10 +17,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('level',['warga','petugas','admin'])->default('warga');
             $table->rememberToken();
             $table->timestamps();
         });
     }
+    // Set session options for remember_token in User model
+
+    // Pastikan Anda telah mengganti nama model "User" jika nama model pengguna Anda berbeda
+
+    // Cek apakah kolom "remember_token" ada di tabel pengguna
+
 
     /**
      * Reverse the migrations.
@@ -30,3 +37,13 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+
+if(Schema::hasColumn('users', 'remember_token')) {
+    // Ambil semua pengguna dari tabel
+    $users = DB::table('users')->get();
+
+    foreach ($users as $user) {
+        // Set session token untuk setiap pengguna
+        DB::table('users')->where('id', $user->id)->update(['remember_token' => User::generateToken()]);
+    }
+}
